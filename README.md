@@ -1,6 +1,7 @@
-# #f03c15 CS412 - HW Grade Predictor 
+#f03c15 
+# CS412 - HW Grade Predictor 
 
-<font color="green"> This project aims to predict the score of a ML homework assignment by analyzing chatGPT histories submitted by the students. Initially utilizing a Decision Tree, the project transitioned to Gradient Boosting Regression due to heavy bias in the data. Key features include feature engineering, date extraction from HTML, and efforts to improve model performance. </font>
+This project aims to predict the score of a ML homework assignment by analyzing chatGPT histories submitted by the students. Initially utilizing a Decision Tree, the project transitioned to Gradient Boosting Regression due to heavy bias in the data. Key features include feature engineering, date extraction from HTML, and efforts to improve model performance.
 
 ## Table of Contents
 - [Methodology](#methodology)
