@@ -15,7 +15,9 @@ This project aims to predict the score of a ML homework assignment by analyzing 
    - Resulting dates are then saved in a dates.txt file, establishing a mapping between each homework assignment ID and its corresponding date.
    - This allows us to explore potential correlations between submission times and final scores.
 
-   ```from selenium import webdriver
+
+   ```
+   from selenium import webdriver
       from datetime import datetime
       
       #dates of the html pages
@@ -56,7 +58,8 @@ This project aims to predict the score of a ML homework assignment by analyzing 
                       except:
                           pass
       
-              driver.close() ```
+              driver.close()
+   ```
 
   
      
