@@ -122,7 +122,7 @@ We improved the performance of the model and raised our final test score to 0.57
    - Attempted to identify repeated prompts about the same homework question, but faced challenges and eventually excluded this feature from our model.
 
 2. Sampling Methods:
-   - Experimented with different sampling methods; attempted to use the RandomOverSampler from the imbalanced-learn library for oversampling the minority class, but ended up exclusding it because it was aversely affecting the model due to the small size of the dataset.
+   - Experimented with different sampling methods; attempted to use the RandomOverSampler from the imbalanced-learn library for oversampling the minority class, but ended up excluding it because it was adversely affecting the model due to the small size of the dataset.
   
 ## Contributions
 Kaan: Data Extraction/Preprocessing, Feature Engineering, Model Training
