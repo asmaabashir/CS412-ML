@@ -61,7 +61,6 @@ This project aims to predict the score of a ML homework assignment by analyzing 
       
               driver.close()
 
-  
 2. Boosting Regression Model:
    - Initially used a Decision Tree
    - Experimented with other models like VotingRegressor, RandomForestRegressor, AdaBoostRegressor
@@ -70,8 +69,6 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
    ```
       grd3 = GradientBoostingRegressor(random_state=0,criterion='squared_error', learning_rate=0.25, n_estimators=49)
-
-
 3. Feature Engineering:
    - Introduced Keywords2Search list for identifying the occurrence of specific keywords in user prompts
    - Introduced Keywords2SearchResponse for detecting the presence of keywords like 'python' 'code' and 'import' to check whether or not chatGPT's reponses were providing Python code and how many times code was provided.
@@ -79,7 +76,6 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
 
    ```
-
    keywords2search = ["error", "no", "thank", "next", "help", "also", "explain"]
    keywords2search = [k.lower() for k in keywords2search]
    
@@ -112,8 +108,6 @@ This project aims to predict the score of a ML homework assignment by analyzing 
            code2features[code]["prompt_avg_chars"] /= code2features[code]["#user_prompts"]   
            code2features[code]["response_avg_chars"] /= code2features[code]["#user_prompts"]
            code2features[code]["total_avg_chars"] = code2features[code]["prompt_avg_chars"] + code2features[code]["response_avg_chars"]
-
-
 ## Results
 ![image](https://github.com/asmaabashir/CS412-ML/assets/127853761/d9fcfb25-6c84-442b-b599-d0da7e91226f)
 
