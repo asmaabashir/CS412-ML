@@ -10,6 +10,11 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
 ## Methodology
 1. Date Scraping & Extraction:
+   - Used Selenium WebDriver to extract dates from HTML pages.
+   - It iterates through each HTML file, extracts the date information using BeautifulSoup after rendering the page, and standardizes the date format to 'Month Day, Year.'
+   - Resulting dates are then saved in a dates.txt file, establishing a mapping between each homework assignment ID and its corresponding date.
+   - This allows us to explore potential correlations between submission times and final scores.
+
    ```from selenium import webdriver
       from datetime import datetime
       
@@ -29,8 +34,7 @@ This project aims to predict the score of a ML homework assignment by analyzing 
                   for file in os.listdir(d_path):
                       full_path = os.path.join(d_path, file)
       
-                      try:#stupid DS_Store file >:/ 
-      
+                      try:
                           #open the file in the browser
                           driver.get('file://' + os.path.abspath(full_path))
                           html_source = driver.page_source
@@ -52,23 +56,9 @@ This project aims to predict the score of a ML homework assignment by analyzing 
                       except:
                           pass
       
-      
-              driver.close()
-      
-      #to save time, load the dates from the file
-      if os.path.exists(save_path):
-          df_dates = pd.read_csv(save_path, delim_whitespace=True)
-          df_dates.dropna(inplace=True)
-          data_dict= dict(zip(df_dates['id'], df_dates['date']))
-      
-          #make the date values a datetime object in the dict as the rest of the code expects it    
-          for key in data_dict:
-              data_dict[key]=datetime.strptime(data_dict[key], '%Y-%m-%d').date() ```
+              driver.close() ```
 
-   - Used Selenium WebDriver to extract dates from HTML pages.
-   - It iterates through each HTML file, extracts the date information using BeautifulSoup after rendering the page, and standardizes the date format to 'Month Day, Year.'
-   - Resulting dates are then saved in a dates.txt file, establishing a mapping between each homework assignment ID and its corresponding date.
-   - This allows us to explore potential correlations between submission times and final scores.
+  
      
 3. Boosting Regression Model:
    - Initially used a Decision Tree
