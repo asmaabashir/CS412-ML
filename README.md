@@ -10,17 +10,72 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
 ## Methodology
 1. Date Scraping & Extraction:
+   ```from selenium import webdriver
+      from datetime import datetime
+      
+      #dates of the html pages
+      d_path = "data/html"
+      save_path = "data/dates.txt"
+      
+      if not os.path.exists(save_path):
+          data_dict=dict()
+      
+          with open(save_path, 'w') as f:
+              f.write("id date\n")
+      
+              driver=webdriver.Chrome()
+      
+              if os.path.exists(d_path):
+                  for file in os.listdir(d_path):
+                      full_path = os.path.join(d_path, file)
+      
+                      try:#stupid DS_Store file >:/ 
+      
+                          #open the file in the browser
+                          driver.get('file://' + os.path.abspath(full_path))
+                          html_source = driver.page_source
+                          soup=BeautifulSoup(html_source, 'html.parser')
+                          date=soup.find('div',{'class':'pt-3 text-base text-gray-400 sm:pt-4'}).text
+                          
+                          #if date is in format NAME•Month Day, Year
+                          if '•' in date:
+                              date=date.split('•')[1]
+                              
+                          date=datetime.strptime(date, '%B %d, %Y').date()
+                          id=file.split('.')[0]
+      
+                          #to avoid running selenium every time, save the dates to a file
+                          if date is not None and id is not None:
+                              f.write(" ".join([id, str(date)]) + '\n')
+                          data_dict[id]=date
+                          
+                      except:
+                          pass
+      
+      
+              driver.close()
+      
+      #to save time, load the dates from the file
+      if os.path.exists(save_path):
+          df_dates = pd.read_csv(save_path, delim_whitespace=True)
+          df_dates.dropna(inplace=True)
+          data_dict= dict(zip(df_dates['id'], df_dates['date']))
+      
+          #make the date values a datetime object in the dict as the rest of the code expects it    
+          for key in data_dict:
+              data_dict[key]=datetime.strptime(data_dict[key], '%Y-%m-%d').date() ```
+
    - Used Selenium WebDriver to extract dates from HTML pages.
    - It iterates through each HTML file, extracts the date information using BeautifulSoup after rendering the page, and standardizes the date format to 'Month Day, Year.'
    - Resulting dates are then saved in a dates.txt file, establishing a mapping between each homework assignment ID and its corresponding date.
    - This allows us to explore potential correlations between submission times and final scores.
      
-2. Boosting Regression Model:
+3. Boosting Regression Model:
    - Initially used a Decision Tree
    - Experimented with other models like VotingRegressor, RandomForestRegressor, AdaBoostRegressor
    - Since the data was biased due to the uneven distribution among different grades, we transitioned to employing Gradient Boosting Regression (with a learning rate of 0.25), which is good for handling imbalanced datasets.
      
-3. Feature Engineering:
+4. Feature Engineering:
    - Introduced Keywords2Search list for identifying the occurrence of specific keywords in user prompts
    - Introduced Keywords2SearchResponse for detecting the presence of keywords like 'python' 'code' and 'import' to check whether or not chatGPT's reponses were providing Python code and how many times code was provided.
    - The sum of average prompt length and average response length gives the total average length of a conversation.
