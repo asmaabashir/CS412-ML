@@ -125,6 +125,8 @@ We improved the performance of the model and raised our final test score to 0.57
    - Experimented with different sampling methods; attempted to use the RandomOverSampler from the imbalanced-learn library for oversampling the minority class, but ended up excluding it because it was adversely affecting the model due to the small size of the dataset.
   
 ## Contributions
-Kaan: Data Extraction/Preprocessing, Feature Engineering, Model Training
-Asmaa: Feature Engineering, Model Evaluation, Documentation
-Hannan: Feature Engineering, Model Evaluation, Documentation
+Kaan Guray Sirin: Data Extraction/Preprocessing, Feature Engineering, Model Training
+
+Asmaa Bashir: Feature Engineering, Model Evaluation, Documentation
+
+Hannan Toprak: Feature Engineering, Model Evaluation, Documentation
