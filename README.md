@@ -59,16 +59,14 @@ This project aims to predict the score of a ML homework assignment by analyzing 
                           pass
       
               driver.close()
-   ```
 
   
-     
-3. Boosting Regression Model:
+2. Boosting Regression Model:
    - Initially used a Decision Tree
    - Experimented with other models like VotingRegressor, RandomForestRegressor, AdaBoostRegressor
    - Since the data was biased due to the uneven distribution among different grades, we transitioned to employing Gradient Boosting Regression (with a learning rate of 0.25), which is good for handling imbalanced datasets.
      
-4. Feature Engineering:
+3. Feature Engineering:
    - Introduced Keywords2Search list for identifying the occurrence of specific keywords in user prompts
    - Introduced Keywords2SearchResponse for detecting the presence of keywords like 'python' 'code' and 'import' to check whether or not chatGPT's reponses were providing Python code and how many times code was provided.
    - The sum of average prompt length and average response length gives the total average length of a conversation.
