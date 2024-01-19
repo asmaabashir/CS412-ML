@@ -14,10 +14,11 @@ This project aims to predict the score of a ML homework assignment by analyzing 
    - It iterates through each HTML file, extracts the date information using BeautifulSoup after rendering the page, and standardizes the date format to 'Month Day, Year.'
    - Resulting dates are then saved in a dates.txt file, establishing a mapping between each homework assignment ID and its corresponding date.
    - This allows us to explore potential correlations between submission times and final scores.
+     
 
 
    ```
-   from selenium import webdriver
+      from selenium import webdriver
       from datetime import datetime
       
       #dates of the html pages
@@ -65,11 +66,53 @@ This project aims to predict the score of a ML homework assignment by analyzing 
    - Initially used a Decision Tree
    - Experimented with other models like VotingRegressor, RandomForestRegressor, AdaBoostRegressor
    - Since the data was biased due to the uneven distribution among different grades, we transitioned to employing Gradient Boosting Regression (with a learning rate of 0.25), which is good for handling imbalanced datasets.
-     
+
+
+   ```
+      grd3 = GradientBoostingRegressor(random_state=0,criterion='squared_error', learning_rate=0.25, n_estimators=49)
+
+
 3. Feature Engineering:
    - Introduced Keywords2Search list for identifying the occurrence of specific keywords in user prompts
    - Introduced Keywords2SearchResponse for detecting the presence of keywords like 'python' 'code' and 'import' to check whether or not chatGPT's reponses were providing Python code and how many times code was provided.
    - The sum of average prompt length and average response length gives the total average length of a conversation.
+
+
+   ```
+
+   keywords2search = ["error", "no", "thank", "next", "help", "also", "explain"]
+   keywords2search = [k.lower() for k in keywords2search]
+   
+   keywords2searchResponses=["python", "copy code", "import"]
+   keywords2searchResponses = [k.lower() for k in keywords2searchResponses]
+   
+   for code, convs in code2convos.items():
+       if len(convs) == 0:
+           print(code)
+           continue
+       for c in convs:
+           text = c["text"].lower()
+           if c["role"] == "user":
+               # User Prompts
+   
+               # count the user prompts
+               code2features[code]["#user_prompts"] += 1
+               
+               # count the keywords
+               for kw in keywords2search:
+                   code2features[code][f"#{kw}"] +=  len(re.findall(rf"\b{kw}\b", text))
+   
+               code2features[code]["prompt_avg_chars"] += len(text)
+           else:
+               # ChatGPT Responses
+               code2features[code]["response_avg_chars"] += len(text)
+               for kw in keywords2searchResponses:
+                   code2features[code][f"#{kw}"] +=  len(re.findall(rf"{kw}", text))
+   
+           code2features[code]["prompt_avg_chars"] /= code2features[code]["#user_prompts"]   
+           code2features[code]["response_avg_chars"] /= code2features[code]["#user_prompts"]
+           code2features[code]["total_avg_chars"] = code2features[code]["prompt_avg_chars"] + code2features[code]["response_avg_chars"]
+
 
 ## Results
 ![image](https://github.com/asmaabashir/CS412-ML/assets/127853761/d9fcfb25-6c84-442b-b599-d0da7e91226f)
