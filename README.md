@@ -76,39 +76,39 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
 
 
-   '''
-   keywords2search = ["error", "no", "thank", "next", "help", "also", "explain"]
-   keywords2search = [k.lower() for k in keywords2search]
-   
-   keywords2searchResponses=["python", "copy code", "import"]
-   keywords2searchResponses = [k.lower() for k in keywords2searchResponses]
-   
-   for code, convs in code2convos.items():
-       if len(convs) == 0:
-           print(code)
-           continue
-       for c in convs:
-           text = c["text"].lower()
-           if c["role"] == "user":
-               # User Prompts
-   
-               # count the user prompts
-               code2features[code]["#user_prompts"] += 1
-               
-               # count the keywords
-               for kw in keywords2search:
-                   code2features[code][f"#{kw}"] +=  len(re.findall(rf"\b{kw}\b", text))
-   
-               code2features[code]["prompt_avg_chars"] += len(text)
-           else:
-               # ChatGPT Responses
-               code2features[code]["response_avg_chars"] += len(text)
-               for kw in keywords2searchResponses:
-                   code2features[code][f"#{kw}"] +=  len(re.findall(rf"{kw}", text))
-   
-           code2features[code]["prompt_avg_chars"] /= code2features[code]["#user_prompts"]   
-           code2features[code]["response_avg_chars"] /= code2features[code]["#user_prompts"]
-           code2features[code]["total_avg_chars"] = code2features[code]["prompt_avg_chars"] + code2features[code]["response_avg_chars"]
+   ```
+      keywords2search = ["error", "no", "thank", "next", "help", "also", "explain"]
+      keywords2search = [k.lower() for k in keywords2search]
+      
+      keywords2searchResponses=["python", "copy code", "import"]
+      keywords2searchResponses = [k.lower() for k in keywords2searchResponses]
+      
+      for code, convs in code2convos.items():
+          if len(convs) == 0:
+              print(code)
+              continue
+          for c in convs:
+              text = c["text"].lower()
+              if c["role"] == "user":
+                  # User Prompts
+      
+                  # count the user prompts
+                  code2features[code]["#user_prompts"] += 1
+                  
+                  # count the keywords
+                  for kw in keywords2search:
+                      code2features[code][f"#{kw}"] +=  len(re.findall(rf"\b{kw}\b", text))
+      
+                  code2features[code]["prompt_avg_chars"] += len(text)
+              else:
+                  # ChatGPT Responses
+                  code2features[code]["response_avg_chars"] += len(text)
+                  for kw in keywords2searchResponses:
+                      code2features[code][f"#{kw}"] +=  len(re.findall(rf"{kw}", text))
+      
+              code2features[code]["prompt_avg_chars"] /= code2features[code]["#user_prompts"]   
+              code2features[code]["response_avg_chars"] /= code2features[code]["#user_prompts"]
+              code2features[code]["total_avg_chars"] = code2features[code]["prompt_avg_chars"] + code2features[code]["response_avg_chars"]
 ## Results
 ![image](https://github.com/asmaabashir/CS412-ML/assets/127853761/d9fcfb25-6c84-442b-b599-d0da7e91226f)
 
