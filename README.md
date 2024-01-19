@@ -27,6 +27,7 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
 ## Results
 ![image](https://github.com/asmaabashir/CS412-ML/assets/127853761/d9fcfb25-6c84-442b-b599-d0da7e91226f)
+
 As can be seen in the histogram above, the grades are heavily biased. Our dataset is also very small.
 Both of these factors heavily affect the performance of our model.
 We improved the performance of the model and raised our final test score to 0.57.
