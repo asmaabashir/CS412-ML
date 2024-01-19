@@ -114,6 +114,7 @@ This project aims to predict the score of a ML homework assignment by analyzing 
 
 As can be seen in the histogram above, the grades are heavily biased. Our dataset is also very small.
 Both of these factors heavily affect the performance of our model.
+
 We improved the performance of the model and raised our final test score to 0.57.
 
 ## Issues
