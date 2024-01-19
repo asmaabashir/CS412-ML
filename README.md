@@ -75,7 +75,8 @@ This project aims to predict the score of a ML homework assignment by analyzing 
    - The sum of average prompt length and average response length gives the total average length of a conversation.
 
 
-   ```
+
+   '''
    keywords2search = ["error", "no", "thank", "next", "help", "also", "explain"]
    keywords2search = [k.lower() for k in keywords2search]
    
